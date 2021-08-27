@@ -1,18 +1,18 @@
 package io;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class TextFileManager {
     public static void main(String[] args) {
         TextFileManager manager = new TextFileManager();
         int numberCount = 10;
         String fullpath = "C:\\study\\file-io-study\\sample2.txt";
-        manager.writeFile(fullpath, numberCount);
+    //    manager.writeFile(fullpath, numberCount);
+     //   manager.readFile(fullpath);
+        manager.readFileWithScanner(fullpath);
     }
 
     private void writeFile(String fullpath, int numberCount) {
@@ -25,6 +25,26 @@ public class TextFileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
+    private void readFile(String fileName){
+        try (FileReader reader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(reader)){
+            String data;
+            while((data=bufferedReader.readLine())!=null){
+                System.out.println(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void readFileWithScanner(String fileName){
+        File file = new File(fileName);
+        try(Scanner scanner = new Scanner(file)){
+            while(scanner.hasNextLine()){
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
