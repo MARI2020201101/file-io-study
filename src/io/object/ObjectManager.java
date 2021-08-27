@@ -7,7 +7,7 @@ public class ObjectManager {
         ObjectManager manager = new ObjectManager();
         String fullPath="C:\\study\\file-io-study\\serial.obj";
         SerialDTO dto = new SerialDTO("자바의 신",1,false,100L);
-   //     manager.saveObject(fullPath, dto);
+        //manager.saveObject(fullPath, dto);
         manager.loadObject(fullPath);
 
     }
