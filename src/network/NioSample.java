@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
 
 public class NioSample {
     public static void main(String[] args) {
@@ -33,9 +35,17 @@ public class NioSample {
 
     private void readFile(String fileName) {
         try (FileChannel channel = new FileInputStream(fileName).getChannel()){//채널열고
+
+            /**
+             * FileChannel channel1 = FileChannel.open(fileName, StandardOpenOption.READ);
+             * 이런식으로도 채널 부를 수 있음.
+             * nio는 채널 + 버퍼기반 방식
+              */
+
+
             ByteBuffer buffer = ByteBuffer.allocate(1024);//버퍼사이즈 정하고
             channel.read(buffer);//버퍼만큼 담아서 읽는다
-            buffer.flip(); //버퍼의 포지션을 앞으로 당긴다
+            buffer.flip(); //버퍼의 포지션을 앞으로 당긴다. 쓰고나서 - 첨부터 읽기위해 버퍼의 포지션을 변경
             while(buffer.hasRemaining()){//버퍼에 데이터 담겨있어??
                 System.out.print((char)buffer.get()); //보여줘!
             }
